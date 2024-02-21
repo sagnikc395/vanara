@@ -8,7 +8,7 @@ import (
 	"monkey/token"
 )
 
-const PROMPT = "🦍>> "
+const PROMPT = "🦧>> "
 
 func Start(in io.Reader, out io.Reader) {
 	scanner := bufio.NewScanner(in)
