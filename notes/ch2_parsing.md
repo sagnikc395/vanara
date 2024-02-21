@@ -50,3 +50,18 @@
     - return 5; -> no value, a statement 
     - add(5,5) -> value 
   - what is an expression or a statement , what produces value and what doesn't , depends on the programming language.
+  
+```go
+type Parser struct {
+  l *lexer.Lexer
+  currToken token.Token 
+  peekToken token.Token
+}
+```
+- l is a pointer to an instance of the lexer on which we repeatdely call the NextToken() to get the next token in the input.
+- currToken and peekToken act exactly like the 2 pointers our lexer has:
+  - position and peekPosition 
+- here they point to the current and the next token.
+- currToken gives us the current token under examination , to decide what to do next.
+- peekToken gives us this info if currToken doesnt give us enough information.
+- 
