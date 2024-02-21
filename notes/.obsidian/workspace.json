@@ -1,0 +1,169 @@
+{
+  "main": {
+    "id": "2d5950f79386ad71",
+    "type": "split",
+    "children": [
+      {
+        "id": "397698ab6fb60f09",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "bc7b33e6822ac3dc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "about.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "924034cbe778d486",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "ch1_lexing.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "b81da9dc14ef7b57",
+    "type": "split",
+    "children": [
+      {
+        "id": "09f2441cecf77d15",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e1266914c3dd8c50",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "62fe837e4ab4f6fb",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "e7fccd6b12f9ac68",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "right": {
+    "id": "4205a72c2966e9a5",
+    "type": "split",
+    "children": [
+      {
+        "id": "20bff33cd9f9c544",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "04c52e5302da63d5",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "ch1_lexing.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "269b71e7715643bb",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "ch1_lexing.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "19cc49ea5513ab7b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "96e56e865d45650d",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "ch1_lexing.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "924034cbe778d486",
+  "lastOpenFiles": [
+    "Screenshot 2024-02-22 at 12.41.01 AM.png",
+    "about.md",
+    "ch1_lexing.md"
+  ]
+}

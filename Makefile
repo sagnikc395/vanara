@@ -4,5 +4,7 @@ clean:
 	rm -rf dist/
 run:
 	go run main.go
-test:
-	go test .
+test-lexer:
+	go test ./lexer 
+test-token:
+	go test ./token 
