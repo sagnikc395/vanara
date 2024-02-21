@@ -40,8 +40,19 @@ type LetStatement struct {
 	Value Expression
 }
 
+// add methods for statementNode and token literal
+func (ls *LetStatement) statementNode() {}
+func (ls *LetStatement) TokenLiteral() string {
+	return ls.Token.Literal
+}
+
 // identifier statement would have 2 fields the token and the value
 type Identifier struct {
 	Token token.Token
 	Value string
+}
+
+func (i *Identifier) expressionNode() {}
+func (i *Identifier) TokenLiteral() string {
+	return i.Token.Literal
 }
