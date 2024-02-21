@@ -11,3 +11,16 @@
 - Init the lexer with our source code and then repeatedly call NextToken() on it to go through the source code , token by token , character by character.
 - doing a TDD based approach.
 
+```go 
+type Lexer struct {
+	input string 
+	position int 
+	readPosition int 
+	ch byte 
+}
+```
+- The reason for these 2 pointers pointing into our input string is the fact that we will need to be able to peek further into the input and look after the current character to see what comes up next.
+- readPosition always points to the "next" character in the input. position points to the character in the input that corresponds to the ch byte.
+- readChar() method will read the character at the current posn.
+	- is to give us the next character and advance our position in the input string.
+	- The first thing it checks whether we have reached the end of input.
