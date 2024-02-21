@@ -8,3 +8,6 @@ test-lexer:
 	go test ./lexer 
 test-token:
 	go test ./token 
+run-build:
+	make build
+	./dist/monkey
