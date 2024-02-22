@@ -30,4 +30,8 @@ type Lexer struct {
 	- look at the current character under examination (l.ch) and return a token depending on which character it is.
 	- Before returning the token we advanced our pointers into the input so when we call NextToken() again the l.ch filed is already updated.
 	- newToken() helps us with initializing these tokens.
-	- 
+
+### Identifiers and Keywords:
+- What the lexer needs to do is recognize whether the current character is a a letter and if so, it needs to read the rest of the identifier/keyword until it encounters a non-letter-character. 
+- Having read that identifier/keyword , we then need to find out if it is a identifier or a keyword , so we can use the correct token.TokenType.
+- 
