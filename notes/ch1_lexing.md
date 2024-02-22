@@ -45,3 +45,10 @@ type Lexer struct {
 	- 2 character long 
 	- keyword token
 - Support for \[-,\/,*,<,>] is tirivial.
+- For these add the tokens in the map and check the tests.
+- Supporting 2 characters tokens to our lexer:
+	- Extend the exisiting brances for = and ! and extend them. So we look ahead in the input and then determine whether to return a token for = or == .
+	- Adding a peekChar() method that doesnt increment l.position and l.readPosition. We only want to "peek" ahead in the input and not move around in it, so we know that a call to readChar() would return.
+	- Difficulty of parsing different languages often comes down to how far or how before we need to peek in source code to make sense of it.
+	- When the lexer comes to == , in input, it creates 2 token.ASSIGN tokens instead of one token.EQ token.
+		- Soln: use our new peekChar() method in the branches of the switch statement for '=' and ! as we peek ahead. If the next tokens are also = , we create either a token.EQ or token.NOT_EQ.
