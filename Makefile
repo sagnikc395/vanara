@@ -1,5 +1,5 @@
 build:
-	go build main.go -o dist/monkey
+	go build  -o dist/monkey
 clean:
 	rm -rf dist/
 run:

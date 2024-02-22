@@ -52,3 +52,9 @@ type Lexer struct {
 	- Difficulty of parsing different languages often comes down to how far or how before we need to peek in source code to make sense of it.
 	- When the lexer comes to == , in input, it creates 2 token.ASSIGN tokens instead of one token.EQ token.
 		- Soln: use our new peekChar() method in the branches of the switch statement for '=' and ! as we peek ahead. If the next tokens are also = , we create either a token.EQ or token.NOT_EQ.
+### Repl:
+- REPL stands for Read Eval Print Loop.
+- Supported in most langauges.
+- REPL sometimes called console, sometimes interactive mode.
+- REPL reads the input, sends it to the interpreter for evaluation, prints the result/ output of the interpreter and starts again.
+- read from the input source until encountering a newline, take the just read line and pass it to an instance of our lexer and finally print all the tokens the lexer gives us until we encounter EOF.
