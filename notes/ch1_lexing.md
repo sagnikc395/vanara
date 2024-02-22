@@ -34,4 +34,6 @@ type Lexer struct {
 ### Identifiers and Keywords:
 - What the lexer needs to do is recognize whether the current character is a a letter and if so, it needs to read the rest of the identifier/keyword until it encounters a non-letter-character. 
 - Having read that identifier/keyword , we then need to find out if it is a identifier or a keyword , so we can use the correct token.TokenType.
-- 
+- To add Type Information about Literal field of our current token we need to be able to tell user-defined identifiers apart from language keywords. We add LookupIdent as a map lookup for our keywords and returns the current TokenType for the token literal we have.
+	- LookupIdent checks the keywords table to see whether the given identifier is in fact a keyword. If it is, it will return the keyword's TokenType constant. If it isnt , we just get back token.IDENT, which is the TokenType for all user-defined identifiers.
+	- Also remove whitespace in tokens ; as in Monkey, whitespace only acts as a separator of tokens and doesnt have a meaning so we need to skip it entirely.
