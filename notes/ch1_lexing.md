@@ -37,3 +37,11 @@ type Lexer struct {
 - To add Type Information about Literal field of our current token we need to be able to tell user-defined identifiers apart from language keywords. We add LookupIdent as a map lookup for our keywords and returns the current TokenType for the token literal we have.
 	- LookupIdent checks the keywords table to see whether the given identifier is in fact a keyword. If it is, it will return the keyword's TokenType constant. If it isnt , we just get back token.IDENT, which is the TokenType for all user-defined identifiers.
 	- Also remove whitespace in tokens ; as in Monkey, whitespace only acts as a separator of tokens and doesnt have a meaning so we need to skip it entirely.
+
+## Extending Token Set and Lexer:
+- To eliminate jumping between packages when writing our parser, we need to extend our lexer so it can recognize more of the Monkey lang and output more tokens.
+- the new tokens can be classified into 3 categroies:
+	- 1 character long 
+	- 2 character long 
+	- keyword token
+- Support for \[-,\/,*,<,>] is tirivial.
