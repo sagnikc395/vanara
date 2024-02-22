@@ -24,3 +24,10 @@ type Lexer struct {
 - readChar() method will read the character at the current posn.
 	- is to give us the next character and advance our position in the input string.
 	- The first thing it checks whether we have reached the end of input.
+	- l.readPosition always points to the next position where we are going to read from next and l.position always points to the position where we last read.
+- Currently this only supports ASCII character , to fully support Unicode and UTF-8 , we would need to change l.ch from byte to rune and also change the way we read the next characters, since they could be multiple bytes wide now.
+- NextToken() method:
+	- look at the current character under examination (l.ch) and return a token depending on which character it is.
+	- Before returning the token we advanced our pointers into the input so when we call NextToken() again the l.ch filed is already updated.
+	- newToken() helps us with initializing these tokens.
+	- 
