@@ -200,6 +200,7 @@ func (p *Parser) parsePrefixExpression() ast.Expression {
 		Token:    p.currToken,
 		Operator: p.currToken.Literal,
 	}
+	//to correctly parse a prefix expression like , one more token has to be consumed.
 	p.nextToken()
 
 	expression.Right = p.parseExpression(PREFIX)
