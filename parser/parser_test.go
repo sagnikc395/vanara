@@ -214,3 +214,35 @@ func testIntegerLiteral(t *testing.T, il ast.Expression, value int64) bool {
 	return true
 
 }
+
+func TestParsingInfixExpressions(t *testing.T) {
+	infixTests := []struct {
+		input      string
+		leftValue  int64
+		operator   string
+		rightValue int64
+	}{
+		{"5 + 5;", 5, "+", 5},
+		{"5 - 5;", 5, "-", 5},
+		{"5 * 5;", 5, "*", 5},
+		{"5 / 5;", 5, "/", 5},
+		{"5 > 5;", 5, ">", 5},
+		{"5 < 5;", 5, "<", 5},
+		{"5 == 5;", 5, "==", 5},
+		{"5 != 5;", 5, "!=", 5},
+	}
+
+	for _, tt := range infixTests {
+		l := lexer.New(tt.input)
+		p := New(l)
+		program := p.ParseProgram()
+		checkParseErrors(t, p)
+		if len(program.Statements) != 1 {
+			t.Fatalf("program.Statements does not contain %d statements. got=%d\n", 1, len(program.Statements))
+		}
+		stmt, ok := program.Statements[0].(*ast.ExpressionStatement)
+		if !ok {
+
+		}
+	}
+}
