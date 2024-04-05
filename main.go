@@ -11,6 +11,7 @@ import (
 )
 
 const VERSION = "0.0.1"
+const logfile = "/Users/sagnik3/Desktop/sagnikc395/Research/Projects/monkey/log.txt"
 
 func handleMessage(logger *log.Logger, msg any) {
 	logger.Println(msg)
@@ -21,13 +22,12 @@ func getLogger(filename string) *log.Logger {
 	if err != nil {
 		panic("didn't give a good file")
 	}
-	return log.New(logfile, "[educationalsp]", log.Ldate|log.Ltime|log.Lshortfile)
+	return log.New(logfile, "[monkeylsp]", log.Ldate|log.Ltime|log.Lshortfile)
 }
 
 func runLSP() {
-	logger := getLogger("/home/sagnikc/Personal/monkey/lsp/log.txt")
+	logger := getLogger(logfile)
 	logger.Println("Logging started!")
-	fmt.Println("hi")
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Split(rpc.Split)
 

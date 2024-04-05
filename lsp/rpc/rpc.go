@@ -58,8 +58,7 @@ func Split(data []byte, _ bool) (advance int, token []byte, err error) {
 		return 0, nil, nil
 	}
 	//length needed to move forward
-	totalLength := len(header) + 4  + contentLength
+	totalLength := len(header) + 4 + contentLength
 
-
-	return totalLength,data[:totalLength],nil
+	return totalLength, data[:totalLength], nil
 }
