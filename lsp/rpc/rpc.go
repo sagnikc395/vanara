@@ -40,3 +40,7 @@ func DecodeMessage(msg []byte) (string, []byte, error) {
 
 	return baseMessage.Method, content[:contentLength], nil
 }
+
+func Split(data []byte, _ bool) (advance int, token []byte, err error) {
+	return 0, nil, nil
+}

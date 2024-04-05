@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"monkey/repl"
 	"os"
@@ -8,6 +9,21 @@ import (
 )
 
 const VERSION = "0.0.1"
+
+func handleMessage(_ any) {
+
+}
+
+func runLSP() {
+	fmt.Println("hi")
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Split()
+
+	for scanner.Scan() {
+		msg := scanner.Text()
+		handleMessage(msg)
+	}
+}
 
 func main() {
 	user, err := user.Current()
