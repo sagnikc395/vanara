@@ -43,6 +43,10 @@ const (
 	IF       = "IF"
 	ELSE     = "ELSE"
 	RETURN   = "RETURN"
+
+	//comparision operators
+	EQ     = "=="
+	NOT_EQ = "!="
 )
 
 // keywords define
