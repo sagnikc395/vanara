@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/sagnikc395/monkey/ast"
-
 	"github.com/sagnikc395/monkey/lexer"
 )
 
@@ -63,7 +62,5 @@ func testLetStatement(t *testing.T, s ast.Statement, name string) bool {
 	if letstmt.Name.TokenLiteral() != name {
 		t.Errorf("s.Name not '%s'. got=%s", name, letstmt.Name)
 	}
-
 	return true
-
 }
