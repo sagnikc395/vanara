@@ -114,4 +114,8 @@ func (es *ExpressionStatement) String() string {
 	return ""
 }
 
+// addd a last strng method to ast.Identifier
+func (i *Identifier) String() string {
+	return i.Value
+}
 
