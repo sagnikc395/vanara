@@ -34,7 +34,7 @@ func (p *Program) TokenLiteral() string {
 }
 
 type LetStatement struct {
-	Token token.Token
+	Token token.Token //token.LET
 	Name  *Identifier
 	Value Expression
 }
@@ -45,7 +45,7 @@ func (ls *LetStatement) TokenLiteral() string {
 }
 
 type Identifier struct {
-	Token token.Token
+	Token token.Token // token.IDENT token
 	Value string
 }
 
@@ -172,5 +172,3 @@ func (oe *InfixExpression) String() string {
 	out.WriteString(")")
 	return out.String()
 }
-
-
