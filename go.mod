@@ -1,3 +1,3 @@
-module github.com/sagnikc395/monkey
+module github.com/sagnikc395/donkey
 
-go 1.21.7
+go 1.22.3
