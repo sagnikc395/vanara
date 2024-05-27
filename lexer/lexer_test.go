@@ -25,6 +25,9 @@ func TextNextToken(t *testing.T) {
 	} else {
 		return false;
 	}
+
+	10 == 10;
+	10 != 9;
 	`
 	tests := []struct {
 		expectedType    token.TokenType
@@ -67,6 +70,13 @@ func TextNextToken(t *testing.T) {
 		{token.IDENT, "ten"},
 		{token.RPAREN, ")"},
 		{token.SEMICOLON, ";"},
+		{token.BANG, "!"},
+		{token.MINUS, "-"},
+		{token.SLASH, "/"},
+		{token.ASTERISK, "*"},
+		{token.INT, "5"},
+		{token.SEMICOLON, ";"},
+		//TODO: extend the test accoridng to above string
 		{token.EOF, ""},
 	}
 
