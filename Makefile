@@ -10,3 +10,5 @@ test-lexer:
 test-ast:
 	go test -v ./ast 
 
+test-parser:
+	go test -v ./parser 
