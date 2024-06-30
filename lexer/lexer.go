@@ -335,7 +335,7 @@ func (l *Lexer) readIdentifier() string {
 	//now we have to see if our identifier had a period inside it
 
 	if strings.Contains(id, ".") {
-		ok := valid(id)
+		ok := valid[id]
 		//check type-prefix, let the definition succeed
 		if !ok {
 			for _, i := range types {
@@ -392,7 +392,7 @@ func (l *Lexer) skipMultiLineComment() {
 		}
 
 		//else, keep going until we find "*/"
-		if l.ch == "*" && l.peekChar() == '/' {
+		if l.ch == '*' && l.peekChar() == '/' {
 			found = true
 			//our current posn is "*", so skip forward to consume the "/"
 			l.readChar()
