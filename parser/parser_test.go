@@ -3,8 +3,8 @@ package parser
 import (
 	"testing"
 
-	"github.com/sagnikc395/donkey/ast"
-	"github.com/sagnikc395/donkey/lexer"
+	"github.com/sagnikc395/vanara/ast"
+	"github.com/sagnikc395/vanara/lexer"
 )
 
 func TestLetStatement(t *testing.T) {

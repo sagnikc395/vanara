@@ -1,6 +1,6 @@
-# donkey
+# vanara
 
-An interpreter for the monkey programming language.
+An interpreter for the Monkey programming language.
 
 
 ## Build 

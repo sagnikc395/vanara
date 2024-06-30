@@ -3,7 +3,7 @@ package ast
 import (
 	"bytes"
 
-	"github.com/sagnikc395/donkey/token"
+	"github.com/sagnikc395/vanara/token"
 )
 
 type Node interface {

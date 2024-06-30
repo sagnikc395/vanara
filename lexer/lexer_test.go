@@ -1,9 +1,12 @@
+//lexer contains the code to lex the input-programs into a stream
+// of tokens ,such that they may be parsed
+
 package lexer
 
 import (
 	"testing"
 
-	"github.com/sagnikc395/donkey/token"
+	"github.com/sagnikc395/vanara/token"
 )
 
 func TextNextToken(t *testing.T) {
