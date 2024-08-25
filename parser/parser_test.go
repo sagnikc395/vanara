@@ -195,3 +195,31 @@ func testBooleanLiteral(t *testing.T, exp ast.Expression, value bool) bool {
 
 	return true
 }
+
+func TestIdentifierExpression(t *testing.T) {
+	input := "foobar;"
+
+	program := createParseProgram(input, t)
+
+	if len(program.Statements) != 1 {
+		t.Fatalf("program has not enough statements.got=%d", len(program.Statements))
+	}
+
+	stmt, ok := program.Statements[0].(*ast.ExpressionStatement)
+	if !ok {
+		t.Fatalf("program.Statements[0] is not %T.got=%T", &ast.ExpressionStatement{}, program.Statements[0])
+	}
+
+	identifier, ok := stmt.Expression.(*ast.Identifier)
+
+	if !ok {
+		t.Fatalf("expression not %T. got=%T", &ast.Identifier{}, stmt.Expression)
+	}
+
+	if identifier.Value != "foobar" {
+		t.Errorf("identifier.Value not %s. got=%s", "foobar", identifier.Value)
+	}
+	if identifier.TokenLiteral() != "foobar" {
+		t.Errorf("identifier.TokenLiteral not %s. got=%s", "foobar", identifier.TokenLiteral())
+	}
+}
