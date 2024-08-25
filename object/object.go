@@ -1,6 +1,12 @@
 package object
 
-import "fmt"
+import (
+	"bytes"
+	"fmt"
+	"strings"
+
+	"github.com/sagnikc395/vanara/ast"
+)
 
 type ObjectType string
 
@@ -83,4 +89,42 @@ type ReturnValue struct {
 func (rv *ReturnValue) Type() ObjectType { return ReturnValueObj }
 func (rv *ReturnValue) Inspect() string  { return rv.Value.Inspect() }
 
+type Error struct {
+	Message string
+}
 
+func (e *Error) Type() ObjectType {
+	return ErrorObj
+}
+
+func (e *Error) Inspect() string {
+	return "ERROR: " + e.Message
+}
+
+type Function struct {
+	Parameters []*ast.Identifier
+	Body       *ast.BlockStatement
+	Env        *Environment
+}
+
+func (f *Function) Type() ObjectType {
+	return FunctionObj
+}
+
+func (f *Function) Inspect() string {
+	var out bytes.Buffer
+
+	var params []string
+	for _, p := range f.Parameters {
+		params = append(params, p.String())
+	}
+
+	out.WriteString("fn")
+	out.WriteString("(")
+	out.WriteString(strings.Join(params, ", "))
+	out.WriteString(") {\n")
+	out.WriteString(f.Body.String())
+	out.WriteString("\n}")
+
+	return out.String()
+}
