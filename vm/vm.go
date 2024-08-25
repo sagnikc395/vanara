@@ -95,3 +95,70 @@ func (vm *VM) executeBinaryOperation(op code.Opcode) error {
 		return fmt.Errorf("unsupported types for binary operation: %s %s", leftType, rightType)
 	}
 }
+
+func (vm *VM) executeBinaryIntegerOperation(op code.Opcode, left, right object.Object) error {
+	leftValue := left.(*object.Integer).Value
+	rightValue := right.(*object.Integer).Value
+
+	var result int64
+
+	switch op {
+	case code.OpAdd:
+		result = leftValue + rightValue
+	case code.OpSub:
+		result = leftValue - rightValue
+	case code.OpMul:
+		result = leftValue * rightValue
+	case code.OpDiv:
+		result = leftValue / rightValue
+	default:
+		return fmt.Errorf("unknown integer operator: %d", op)
+	}
+
+	return vm.push(&object.Integer{Value: result})
+}
+
+func (vm *VM) executeBinaryStringOperation(op code.Opcode, left, right object.Object) error {
+	if op != code.OpAdd {
+		return fmt.Errorf("unknown string operator: %d", op)
+	}
+
+	leftValue := left.(*object.String).Value
+	rightValue := right.(*object.String).Value
+
+	return vm.push(&object.String{Value: leftValue + rightValue})
+
+}
+
+func (vm *VM) executeComparision(op code.Opcode) error {
+	right := vm.pop()
+	left := vm.pop()
+
+	if left.Type() == object.IntegerObj || right.Type() == object.IntegerObj {
+		return vm.executeIntegerComparision(op, left, right)
+	}
+	switch op {
+	case code.OpEqual:
+		return vm.push(nativeBoolToBooleanObject(right == left))
+	case code.OpNotEqual:
+		return vm.push(nativeBoolToBooleanObject(right != left))
+	default:
+		return fmt.Errorf("unknown operator: %d %s %s", op, left.Type(), right.Type())
+	}
+}
+
+func (vm *VM) executeIntegerComparison(op code.Opcode, left, right object.Object) error {
+	leftValue := left.(*object.Integer).Value
+	rightValue := right.(*object.Integer).Value
+
+	switch op {
+	case code.OpEqual:
+		return vm.push(nativeBoolToBooleanObject(rightValue == leftValue))
+	case code.OpNotEqual:
+		return vm.push(nativeBoolToBooleanObject(rightValue != leftValue))
+	case code.OpGreaterThan:
+		return vm.push(nativeBoolToBooleanObject(leftValue > rightValue))
+	default:
+		return fmt.Errorf("unknown operator: %d", op)
+	}
+}
