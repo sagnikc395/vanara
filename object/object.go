@@ -3,6 +3,7 @@ package object
 import (
 	"bytes"
 	"fmt"
+	"hash/fnv"
 	"strings"
 
 	"github.com/sagnikc395/vanara/ast"
@@ -125,6 +126,60 @@ func (f *Function) Inspect() string {
 	out.WriteString(") {\n")
 	out.WriteString(f.Body.String())
 	out.WriteString("\n}")
+
+	return out.String()
+}
+
+type String struct {
+	Value string
+}
+
+func (s *String) Type() ObjectType {
+	return StringObj
+}
+
+func (s *String) Inspect() string {
+	return s.Value
+}
+func (s *String) HashKey() HashKey {
+	h := fnv.New64a()
+	h.Write([]byte(s.Value))
+	return HashKey{Type: s.Type(), Value: h.Sum64()}
+}
+
+type BuiltinFunction func(args ...Object) Object
+
+type Builtin struct {
+	Fn BuiltinFunction
+}
+
+func (b *Builtin) Type() ObjectType {
+	return BuiltinObj
+}
+
+func (b *Builtin) Inspect() string {
+	return "builtin function"
+}
+
+type Array struct {
+	Elements []Object
+}
+
+func (ao *Array) Type() ObjectType {
+	return ArraysObj
+}
+
+func (ao *Array) Inspect() string {
+	var out bytes.Buffer
+
+	var elements []string
+
+	for _, e := range ao.Elements {
+		elements = append(elements, e.Inspect())
+	}
+	out.WriteString("[")
+	out.WriteString(strings.Join(elements, ", "))
+	out.WriteString("]")
 
 	return out.String()
 }
