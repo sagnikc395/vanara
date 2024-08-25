@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/sagnikc395/vanara/ast"
+	"github.com/sagnikc395/vanara/code"
 	"github.com/sagnikc395/vanara/token"
 )
 
@@ -21,7 +22,7 @@ const (
 	FunctionObj         = "Function"
 	StringObj           = "String"
 	BuiltinObj          = "Builtin"
-	ArraysObj           = "Array"
+	ArrayObj            = "Array"
 	HashObj             = "Hash"
 	CompiledFunctionObj = "CompiledFunction"
 	ClosureObj          = "Closure"
@@ -167,7 +168,7 @@ type Array struct {
 }
 
 func (ao *Array) Type() ObjectType {
-	return ArraysObj
+	return ArrayObj
 }
 
 func (ao *Array) Inspect() string {
