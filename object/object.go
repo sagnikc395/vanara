@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/sagnikc395/vanara/ast"
+	"github.com/sagnikc395/vanara/token"
 )
 
 type ObjectType string
@@ -180,6 +181,34 @@ func (ao *Array) Inspect() string {
 	out.WriteString("[")
 	out.WriteString(strings.Join(elements, ", "))
 	out.WriteString("]")
+
+	return out.String()
+}
+
+type HashPair struct {
+	Key   Object
+	Value Object
+}
+
+type Hash struct {
+	Pairs map[HashKey]HashPair
+}
+
+func (h *Hash) Type() ObjectType {
+	return HashObj
+}
+
+func (h *Hash) Inspect() string {
+	var out bytes.Buffer
+
+	var pairs []string
+
+	for _, pair := range h.Pairs {
+		pairs = append(pairs, fmt.Sprintf("%s: %s", pair.Key.Inspect(), pair.Value.Inspect()))
+	}
+	out.WriteString(token.LBRACE)
+	out.WriteString(strings.Join(pairs, token.COMMA+" "))
+	out.WriteString(token.RBRACE)
 
 	return out.String()
 }
