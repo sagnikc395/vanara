@@ -322,4 +322,51 @@ func (al *ArrayLiteral) String() string {
 	return out.String()
 }
 
+type IndexExpression struct {
+	Token token.Token
+	Left  Expression
+	Index Expression
+}
 
+func (ie *IndexExpression) expressionNode() {}
+func (ie *IndexExpression) TokenLiteral() string {
+	return ie.Token.Literal
+}
+
+func (ie *IndexExpression) String() string {
+	var out bytes.Buffer
+
+	out.WriteString(token.LPAREN)
+	out.WriteString(ie.Left.String())
+	out.WriteString(token.LBRACKET)
+	out.WriteString(ie.Index.String())
+	out.WriteString(token.RBRACKET)
+	out.WriteString(token.RPAREN)
+
+	return out.String()
+}
+
+type HashLiteral struct {
+	Token token.Token
+	Pairs map[Expression]Expression
+}
+
+func (hl *HashLiteral) expressionNode() {}
+func (hl *HashLiteral) TokenLiteral() string {
+	return hl.Token.Literal
+}
+
+func (hl *HashLiteral) String() string {
+	var out bytes.Buffer
+
+	var pairs []string
+	for key, value := range hl.Pairs {
+		pairs = append(pairs, key.String()+token.COLON+value.String())
+	}
+
+	out.WriteString(token.LBRACE)
+	out.WriteString(strings.Join(pairs, token.COMMA+" "))
+	out.WriteString(token.RBRACE)
+
+	return out.String()
+}
