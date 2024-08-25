@@ -1,5 +1,8 @@
 build:
-	go build ./dist/donkey 
+	mkdir -p ./dist 
+	go build  -o ./dist/vanara
+run:
+	./dist/vanara
 
 test:
 	go test -v ./...
@@ -12,3 +15,6 @@ test-ast:
 
 test-parser:
 	go test -v ./parser 
+
+clean:
+	rm -rf ./build
