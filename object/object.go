@@ -212,3 +212,28 @@ func (h *Hash) Inspect() string {
 
 	return out.String()
 }
+
+type CompiledFunction struct {
+	Instructions  code.Instructions
+	NumLocals     int
+	NumParameters int
+}
+
+func (cf *CompiledFunction) Type() ObjectType {
+	return CompiledFunctionObj
+}
+
+func (cf *CompiledFunction) Inspect() string {
+	return fmt.Sprintf("CopiledFunction[%p]", cf)
+}
+
+type Closure struct {
+	Fn   *CompiledFunction
+	Free []Object
+}
+
+func (c *Closure) Type() ObjectType { return ClosureObj }
+
+func (c *Closure) Inspect() string {
+	return fmt.Sprintf("Closure[%p]", c)
+}
