@@ -175,5 +175,47 @@ func TestDefineResolveBuiltins(t *testing.T) {
 			}
 		}
 	}
+}
+
+func TestResolveUnresolvableFree(t *testing.T) {
+	global := NewSymbolTable()
+	global.Define("a")
+
+	firstLocal := NewEnclosedSymbolTable(global)
+	firstLocal.Define("c")
+
+	secondLocal := NewEnclosedSymbolTable(firstLocal)
+	secondLocal.Define("e")
+	secondLocal.Define("f")
+
+	expected := []Symbol{
+		{"a", GlobalScope, 0},
+		{"c", FreeScope, 0},
+		{"e", LocalScope, 0},
+		{"f", LocalScope, 1},
+	}
+
+	for _, sym := range expected {
+		result, ok := secondLocal.Resolve(sym.Name)
+		if !ok {
+			t.Errorf("name %s not resolvable", sym.Name)
+			continue
+		}
+
+		if result != sym {
+			t.Errorf("expected %s to resolve to %+v,got=%+v", sym.Name, sym, result)
+		}
+	}
+
+	expectedUnresolvable := []string{
+		"b", "d",
+	}
+
+	for _, name := range expectedUnresolvable {
+		_, ok := secondLocal.Resolve(name)
+		if ok {
+			t.Errorf("name %s resolved, but was expected not to", name)
+		}
+	}
 
 }
