@@ -3,6 +3,8 @@
 package parser
 
 import (
+	"fmt"
+
 	"github.com/sagnikc395/vanara/ast"
 	"github.com/sagnikc395/vanara/lexer"
 	"github.com/sagnikc395/vanara/token"
@@ -14,10 +16,11 @@ type Parser struct {
 	l         *lexer.Lexer
 	curToken  token.Token
 	peekToken token.Token
+	errors    []string
 }
 
 func New(l *lexer.Lexer) *Parser {
-	p := &Parser{l: l}
+	p := &Parser{l: l, errors: []string{}}
 
 	//read the tokens, so curToken and peekToken are both set
 	p.nextToken()
@@ -59,6 +62,9 @@ func (p *Parser) parseStatement() ast.Statement {
 }
 
 // specific case for parsing the let statements
+// create an ast.LetStatement node with the tokens its currently sitting on
+// and then advances the tokens while making assertions about the next token
+// skipping of expressionswill be replaced, as soon, as we know how to parse them.
 func (p *Parser) parseLetStatement() *ast.LetStatement {
 	stmt := &ast.LetStatement{Token: p.curToken}
 
@@ -88,11 +94,23 @@ func (p *Parser) peekTokenIs(t token.TokenType) bool {
 	return p.peekToken.Type == t
 }
 
+// assertion functions; primary purpose is to enforce the correctness of the order of the tokns
+// by checking the type of the next token.
 func (p *Parser) expectPeek(t token.TokenType) bool {
 	if p.peekTokenIs(t) {
 		p.nextToken()
 		return true
 	} else {
+		p.peekError(t)
 		return false
 	}
+}
+
+func (p *Parser) Errors() []string {
+	return p.errors
+}
+
+func (p *Parser) peekError(t token.TokenType) {
+	msg := fmt.Sprintf("expected next token to be %s, got %s instead", t, p.peekToken.Type)
+	p.errors = append(p.errors, msg)
 }
