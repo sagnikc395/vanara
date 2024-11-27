@@ -154,7 +154,7 @@ func TestIntegerLiteralExpression(t *testing.T) {
 	input := "5;"
 
 	l := lexer.New(input)
-	p := New()
+	p := New(l)
 	program := p.ParseProgram()
 	checkParserErrors(t, p)
 
