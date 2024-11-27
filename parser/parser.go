@@ -10,6 +10,18 @@ import (
 	"github.com/sagnikc395/vanara/token"
 )
 
+// defining the precedene's of vanara
+const (
+	_ int = iota
+	LOWEST
+	EQUALS
+	LESSGREATER
+	SUM
+	PRODUCT
+	PREFIX
+	CALL
+)
+
 // l is a pointer to an instsance of the lexer , on which we repeatedly call NextToken() to get the next token in the input.
 // curToken and peekToken like pointers, they point towards the current and the next token.
 type Parser struct {
@@ -17,6 +29,12 @@ type Parser struct {
 	curToken  token.Token
 	peekToken token.Token
 	errors    []string
+
+	//for our parser to get the correct prefixPraseFn or infixParseFn for the current token type, we add 2 maps
+	// to the Parser structure
+
+	prefixParseFns map[token.TokenType]prefixParseFn
+	infixParseFns  map[token.TokenType]infixParseFn
 }
 
 func New(l *lexer.Lexer) *Parser {
@@ -59,7 +77,7 @@ func (p *Parser) parseStatement() ast.Statement {
 	case token.RETURN:
 		return p.parseReturnStatement()
 	default:
-		return nil
+		return p.parseExpressionStatement()
 	}
 }
 
@@ -127,5 +145,38 @@ func (p *Parser) parseReturnStatement() *ast.ReturnStatement {
 		p.nextToken()
 	}
 
+	return stmt
+}
+
+//implementing the Pratt parser , for this, we define 2 types of functions:
+// a prefix parsing functions and an infix parsing function
+
+// main ideas of pratt parsing is thar association of parsing functions with token type.
+// whenever the token type is encountered , the parsing functions are called to parse the appropriate
+// expression and return an AST node that represents it.
+// each token type can have upto 2 parsing functions associated with it, depending on whether the token is
+// found in a prefix or an infix position.
+type (
+	prefixParseFn func() ast.Expression
+	infixParseFn  func(ast.Expression) ast.Expression
+)
+
+// helper methods for pratt parser to add entries to these maps
+func (p *Parser) registerPrefix(tokenType token.TokenType, fn prefixParseFn) {
+	p.prefixParseFns[tokenType] = fn
+}
+
+func (p *Parser) registerInfix(tokenType token.TokenType, fn infixParseFn) {
+	p.infixParseFns[tokenType] = fn
+}
+
+func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
+	stmt := &ast.ExpressionStatement{Token: p.curToken}
+
+	stmt.Expression = p.parseExpression(LOWEST)
+
+	if p.peekTokenIs(token.SEMICOLON) {
+		p.nextToken()
+	}
 	return stmt
 }
