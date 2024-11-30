@@ -229,7 +229,7 @@ func TestParsingPrefixExpressions(t *testing.T) {
 func testIntegerLiteral(t *testing.T, il ast.Expression, value int64) bool {
 	integ, ok := il.(*ast.IntegerLiteral)
 	if !ok {
-		t.Errorf("il not *ast.IntegerLiteral. got=%T", il)
+		t.Errorf("il not of  *ast.IntegerLiteral. got=%T", il)
 		return false
 	}
 
@@ -381,7 +381,7 @@ func TestOperatorPrecedenceParsing(t *testing.T) {
 		//tests for checking for grouped expressions
 		{
 			"1 + (2 + 3) + 4",
-			"((1 + (2 + 3))+ 4)",
+			"((1 + (2 + 3)) + 4)",
 		},
 		{
 			"(5 + 5) * 2",
