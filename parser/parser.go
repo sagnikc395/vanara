@@ -58,11 +58,12 @@ func New(l *lexer.Lexer) *Parser {
 	p.nextToken()
 
 	p.prefixParseFns = make(map[token.TokenType]prefixParseFn)
-	// p.registerPrefix(token.IDENT, p.parseIdentifier)
-	// p.registerPrefix(token.INT, p.parseIntegerLiteral)
-	// //parsing functions for prefix expressions and registers in our parser
-	// p.registerPrefix(token.BANG, p.parsePrefixExpression)
-	// p.registerPrefix(token.MINUS, p.parsePrefixExpression)
+	p.registerPrefix(token.IDENT, p.parseIdentifier)
+	p.registerPrefix(token.INT, p.parseIntegerLiteral)
+	//parsing functions for prefix expressions and registers in our parser
+	p.registerPrefix(token.BANG, p.parsePrefixExpression)
+	p.registerPrefix(token.MINUS, p.parsePrefixExpression)
+	p.infixParseFns = make(map[token.TokenType]infixParseFn)
 	p.registerInfix(token.PLUS, p.parseInfixExpression)
 	p.registerInfix(token.MINUS, p.parseInfixExpression)
 	p.registerInfix(token.SLASH, p.parseInfixExpression)
