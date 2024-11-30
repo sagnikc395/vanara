@@ -80,6 +80,9 @@ func New(l *lexer.Lexer) *Parser {
 	//grouped expressions
 	p.registerPrefix(token.LPAREN, p.parseGroupedExpression)
 
+	//if else expressions
+	p.registerPrefix(token.IF, p.parseIfExpression)
+
 	return p
 }
 
@@ -341,4 +344,63 @@ func (p *Parser) parseGroupedExpression() ast.Expression {
 	}
 
 	return exp
+}
+
+//parsing infix expressions
+
+func (p *Parser) parseIfExpression() ast.Expression {
+	expression := &ast.IfExpression{Token: p.curToken}
+	if !p.expectPeek(token.LPAREN) {
+		return nil
+	}
+
+	p.nextToken()
+
+	expression.Condition = p.parseExpression(LOWEST)
+
+	if !p.expectPeek(token.RPAREN) {
+		return nil
+	}
+
+	if !p.expectPeek(token.LBRACE) {
+		return nil
+	}
+
+	expression.Consequence = p.parseBlockStatement()
+	// in order to support the else part of the if-else condition, we need to check if it is even existing
+	// and if so we need to parse the block statement that comes directly after else
+
+	if p.peekTokenIs(token.ELSE) {
+		p.nextToken()
+
+		if !p.expectPeek(token.LBRACE) {
+			return nil
+		}
+
+		expression.Alternative = p.parseBlockStatement()
+	}
+
+	return expression
+}
+
+// parseBlock statement will calls parse statement until it encoutners either a }, which
+// tells the end of the block stmt or a token.EOF, which will tell us that there is no more tokens
+// left to parse.
+// then we can't successfully parse the block statement and there is no need to keep on calling parseStatement
+// in an endless loop.
+func (p *Parser) parseBlockStatement() *ast.BlockStatement {
+	block := &ast.BlockStatement{Token: p.curToken}
+
+	block.Statements = []ast.Statement{}
+
+	p.nextToken()
+
+	for !p.curTokenIs(token.RBRACE) && !p.curTokenIs(token.EOF) {
+		stmt := p.parseStatement()
+		if stmt != nil {
+			block.Statements = append(block.Statements, stmt)
+		}
+		p.nextToken()
+	}
+	return block
 }
