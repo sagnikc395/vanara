@@ -372,11 +372,32 @@ func TestOperatorPrecedenceParsing(t *testing.T) {
 		},
 		{
 			"3 > 5 == false",
-			"((3>5) == false)",
+			"((3 > 5) == false)",
 		},
 		{
 			"3 < 5 == true",
-			"((3<5) == true)",
+			"((3 < 5) == true)",
+		},
+		//tests for checking for grouped expressions
+		{
+			"1 + (2 + 3) + 4",
+			"((1 + (2 + 3))+ 4)",
+		},
+		{
+			"(5 + 5) * 2",
+			"((5 + 5) * 2)",
+		},
+		{
+			"2 / (5 + 5)",
+			"(2 / (5 + 5))",
+		},
+		{
+			"-(5 + 5)",
+			"(-(5 + 5))",
+		},
+		{
+			"!(true == true)",
+			"(!(true == true))",
 		},
 	}
 
@@ -466,7 +487,7 @@ func testBooleanLiteral(t *testing.T, exp ast.Expression, value bool) bool {
 	}
 
 	if bo.TokenLiteral() != fmt.Sprintf("%t", value) {
-		t.Errorf("bo.TokenLiteral not %s. got=%s", value, bo.TokenLiteral())
+		t.Errorf("bo.TokenLiteral not %t.got=%s", value, bo.TokenLiteral())
 		return false
 	}
 
