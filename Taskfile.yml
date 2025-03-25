@@ -1,0 +1,44 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  default:
+    cmds:
+      - echo "{{.GREETING}}"
+    silent: true
+  build:
+    cmds:
+      - mkdir -p ./build 
+      - go build -o ./build/vanara 
+  
+  run:
+    cmds:
+      - ./build/vanara
+  
+  tests:
+    cmds:
+      - go test -v ./...
+
+  # specific tests 
+  test-lexer:
+    cmds:
+      - go test -v ./lexer
+
+  test-ast:
+    cmds:
+      - go test -v ./ast 
+
+  test-parser:
+    cmds:
+      - go test -v ./parser 
+  
+  clean:
+    cmds:
+      - rm -rf ./build 
+
+      
+
