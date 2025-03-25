@@ -1,21 +1,25 @@
-## vanara 
+## vanara
 
 Vanara is a interpreter for the Monkey programming language.
 
 ### Build:
-1. Ensure make is installed on the system:
+
+1. Ensure task is installed on the system:
 
 ```shell
-brew install make 
+brew install go-task
 ```
+
 2. To build the binary, run:
+
 ```shell
-make build 
+task build
 ```
 
 ### Tests:
+
 To run all the tests run as:
 
 ```shell
-make test 
+task test
 ```
