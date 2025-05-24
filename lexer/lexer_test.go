@@ -42,7 +42,7 @@ func TestNextToken(t *testing.T) {
 		},
 	}
 
-	l := NewToken(input)
+	l := NewLexer(input)
 
 	for i, tt := range tests {
 		tok := l.NextToken()
