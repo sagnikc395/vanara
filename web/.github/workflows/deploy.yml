@@ -1,4 +1,4 @@
-name: Deploy SvelteKit Web to GitHub Pages
+name: Vanara Project Main Landing Page 
 
 on:
   push:
