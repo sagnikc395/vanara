@@ -19,6 +19,7 @@ func TestLetStatement(t *testing.T) {
 	p := NewParser(l)
 
 	program := p.ParseProgram()
+	checkParserErrors(t, p)
 	if program == nil {
 		t.Fatalf("ParseProgram() retruned nil !")
 	}
