@@ -1,9 +1,9 @@
 package parser
 
 import (
-	"github.com/sagnikc395/vanara/ast"
-	"github.com/sagnikc395/vanara/lexer"
-	"github.com/sagnikc395/vanara/token"
+	"github.com/sagnikc395/vanara/pkg/ast"
+	"github.com/sagnikc395/vanara/pkg/lexer"
+	"github.com/sagnikc395/vanara/pkg/token"
 )
 
 type Parser struct {

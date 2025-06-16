@@ -1,44 +1,42 @@
+# Taskfile.yml
 # https://taskfile.dev
 
 version: '3'
 
-vars:
-  GREETING: Hello, World!
-
 tasks:
-  default:
-    cmds:
-      - echo "{{.GREETING}}"
-    silent: true
   build:
+    desc: Build the vanara binary into ./build
     cmds:
-      - mkdir -p ./build 
-      - go build -o ./build/vanara 
-  
+      - mkdir -p ./build
+      - go build -o ./build/vanara ./cmd/vanara
+
   run:
+    desc: Run the compiled vanara binary
+    deps: [build]
     cmds:
       - ./build/vanara
-  
-  tests:
+
+  clean:
+    desc: Remove build artifacts
+    cmds:
+      - rm -rf ./build
+
+  test:
+    desc: Run all tests
     cmds:
       - go test -v ./...
 
-  # specific tests 
-  test-lexer:
+  test:lexer:
+    desc: Run lexer package tests
     cmds:
-      - go test -v ./lexer
+      - go test -v ./pkg/lexer
 
-  test-ast:
+  test:ast:
+    desc: Run ast package tests
     cmds:
-      - go test -v ./ast 
+      - go test -v ./pkg/ast
 
-  test-parser:
+  test:parser:
+    desc: Run parser package tests
     cmds:
-      - go test -v ./parser 
-  
-  clean:
-    cmds:
-      - rm -rf ./build 
-
-      
-
+      - go test -v ./pkg/parser

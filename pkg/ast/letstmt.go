@@ -1,6 +1,6 @@
 package ast
 
-import "github.com/sagnikc395/vanara/token"
+import "github.com/sagnikc395/vanara/pkg/token"
 
 type LetStatement struct {
 	Token token.Token

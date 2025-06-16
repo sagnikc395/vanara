@@ -3,7 +3,7 @@ package lexer
 import (
 	"testing"
 
-	"github.com/sagnikc395/vanara/token"
+	"github.com/sagnikc395/vanara/pkg/token"
 )
 
 func TestNextTokenSmall(t *testing.T) {

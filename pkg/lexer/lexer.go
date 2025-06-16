@@ -1,6 +1,6 @@
 package lexer
 
-import "github.com/sagnikc395/vanara/token"
+import "github.com/sagnikc395/vanara/pkg/token"
 
 type Lexer struct {
 	input        string

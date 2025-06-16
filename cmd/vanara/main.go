@@ -5,7 +5,7 @@ import (
 	"os"
 	"os/user"
 
-	"github.com/sagnikc395/vanara/repl"
+	"github.com/sagnikc395/vanara/pkg/repl"
 )
 
 func main() {
