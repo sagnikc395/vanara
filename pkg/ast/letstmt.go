@@ -1,6 +1,10 @@
 package ast
 
-import "github.com/sagnikc395/vanara/pkg/token"
+import (
+	"bytes"
+
+	"github.com/sagnikc395/vanara/pkg/token"
+)
 
 type LetStatement struct {
 	Token token.Token
@@ -13,12 +17,17 @@ func (ls *LetStatement) TokenLiteral() string {
 	return ls.Token.Literal
 }
 
-type Identifier struct {
-	Token token.Token
-	Value string
-}
+// stringer
+func (ls *LetStatement) String() string {
+	var out bytes.Buffer
 
-func (i *Identifier) expressionNode() {}
-func (i *Identifier) TokenLiteral() string {
-	return i.Token.Literal
+	out.WriteString(ls.TokenLiteral() + " ")
+	out.WriteString(ls.Name.String())
+	out.WriteString(" = ")
+
+	if ls.Value != nil {
+		out.WriteString(ls.Value.String())
+	}
+
+	return out.String()
 }

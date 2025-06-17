@@ -1,7 +1,12 @@
 package ast
 
+import (
+	"bytes"
+)
+
 type Node interface {
 	TokenLiteral() string
+	String() string // stringer method for the AST Node
 }
 
 //we can have 2 different types of nodes
@@ -28,4 +33,14 @@ func (p *Program) TokenLiteral() string {
 	} else {
 		return ""
 	}
+}
+
+func (p *Program) String() string {
+	var out bytes.Buffer
+
+	for _, s := range p.Statements {
+		out.WriteString(s.String())
+	}
+
+	return out.String()
 }
