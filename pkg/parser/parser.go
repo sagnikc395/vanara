@@ -11,6 +11,10 @@ type Parser struct {
 	currToken token.Token
 	peekToken token.Token
 	errors    []string
+
+	//maps addded to get the correct prefixParseFn or infixParseFn
+	prefixParseFn map[token.TokenType]prefixParseFn
+	infixParseFn  map[token.TokenType]infixParseFn
 }
 
 func NewParser(l *lexer.Lexer) *Parser {
@@ -56,4 +60,17 @@ func (p *Parser) parseStatement() ast.Statement {
 // error methods
 func (p *Parser) Errors() []string {
 	return p.errors
+}
+
+type (
+	prefixParseFn func() ast.Expression
+	infixParseFn  func(ast.Expression) ast.Expression
+)
+
+// methods to register these
+func (p *Parser) registerPrefix(tokenType token.TokenType, fn prefixParseFn) {
+	p.prefixParseFn[tokenType] = fn
+}
+func (p *Parser) registerInfix(tokenType token.TokenType, fn infixParseFn) {
+	p.infixParseFn[tokenType] = fn
 }
