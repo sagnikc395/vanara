@@ -1,14 +1,14 @@
 # Taskfile.yml
 # https://taskfile.dev
 
-version: '3'
+version: "3"
 
 tasks:
   build:
     desc: Build the vanara binary into ./build
     cmds:
       - mkdir -p ./build
-      - go build -o ./build/vanara ./cmd/vanara
+      - go build -ldflags "-s -w" -o ./build/vanara ./cmd/vanara
 
   run:
     desc: Run the compiled vanara binary
