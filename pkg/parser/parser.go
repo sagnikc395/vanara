@@ -13,8 +13,8 @@ type Parser struct {
 	errors    []string
 
 	//maps addded to get the correct prefixParseFn or infixParseFn
-	prefixParseFn map[token.TokenType]prefixParseFn
-	infixParseFn  map[token.TokenType]infixParseFn
+	prefixParseFns map[token.TokenType]prefixParseFn
+	infixParseFns  map[token.TokenType]infixParseFn
 }
 
 func NewParser(l *lexer.Lexer) *Parser {
@@ -23,6 +23,12 @@ func NewParser(l *lexer.Lexer) *Parser {
 	//read the two tokens, so currTokens and peekTokens are both set
 	p.NextToken()
 	p.NextToken()
+
+	// init prefixParseFN map on Parser and register a parsing function:
+	// if we encounter a token of type token.IDENT the parsing function to call is
+	// parseIdentifier, a method we defined on *Parser
+	p.prefixParseFns = make(map[token.TokenType]prefixParseFn)
+	p.registerPrefix(token.IDENT, p.parseIdentifier)
 
 	return p
 }
@@ -53,7 +59,7 @@ func (p *Parser) parseStatement() ast.Statement {
 	case token.RETURN:
 		return p.parseReturnStatement()
 	default:
-		return nil
+		return p.parseExpressionStatement()
 	}
 }
 
@@ -69,8 +75,15 @@ type (
 
 // methods to register these
 func (p *Parser) registerPrefix(tokenType token.TokenType, fn prefixParseFn) {
-	p.prefixParseFn[tokenType] = fn
+	p.prefixParseFns[tokenType] = fn
 }
 func (p *Parser) registerInfix(tokenType token.TokenType, fn infixParseFn) {
-	p.infixParseFn[tokenType] = fn
+	p.infixParseFns[tokenType] = fn
+}
+
+func (p *Parser) parseIdentifier() ast.Expression {
+	return &ast.Identifier{
+		Token: p.currToken,
+		Value: p.currToken.Literal,
+	}
 }
