@@ -29,6 +29,7 @@ func NewParser(l *lexer.Lexer) *Parser {
 	// parseIdentifier, a method we defined on *Parser
 	p.prefixParseFns = make(map[token.TokenType]prefixParseFn)
 	p.registerPrefix(token.IDENT, p.parseIdentifier)
+	p.registerPrefix(token.INT, p.parseIntegerLiteral)
 
 	return p
 }
