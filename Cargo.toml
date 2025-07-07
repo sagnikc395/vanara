@@ -1,0 +1,18 @@
+[package]
+name = "vanara"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+[lib]
+name = "vanara_lib"
+path = "lib/vanara.rs"
+
+[[bin]]
+name = "vanara_repl"
+path = "repl/main.rs"
+
+[[bin]]
+name = "vanara_exe"
+path = "src/main.rs"
