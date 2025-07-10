@@ -1,6 +1,6 @@
 // define the basic lexer
 
-use crate::token::TokenType;
+use crate::token::{Token, TokenType};
 
 pub struct Lexer {
     input: String,

@@ -5,6 +5,7 @@ pub enum TokenType {
     LParen,
     RParen,
     LBrace,
+    RBrace,
     Comma,
     Semicolon,
     Eof,
@@ -14,7 +15,7 @@ pub enum TokenType {
     Int,
 }
 
-#[derive(Debug, PartialEq, Clome)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct Token {
     pub token_type: TokenType,
     pub literal: String,
