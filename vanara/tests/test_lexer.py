@@ -1,24 +1,24 @@
-from ../vanara/ import token
-from vanara import lexer  
+from vanara.token import Token, TokenType
+from vanara.lexer import Lexer  
 import pytest
 
 
 @pytest.mark.parametrize("expected_type, expected_literal", [
-    (token.TokenType.ASSIGN, "="),
-    (token.TokenType.PLUS, "+"),
-    (token.TokenType.LPAREN, "("),
-    (token.TokenType.RPAREN, ")"),
-    (token.TokenType.LBRACE, "{"),
-    (token.TokenType.RBRACE, "}"),
-    (token.TokenType.COMMA, ","),
-    (token.TokenType.SEMICOLON, ";"),
-    (token.TokenType.EOF, ""),
+    (TokenType.ASSIGN, "="),
+    (TokenType.PLUS, "+"),
+    (TokenType.LPAREN, "("),
+    (TokenType.RPAREN, ")"),
+    (TokenType.LBRACE, "{"),
+    (TokenType.RBRACE, "}"),
+    (TokenType.COMMA, ","),
+    (TokenType.SEMICOLON, ";"),
+    (TokenType.EOF, ""),
 ])
 
 
 def test_next_token(expected_type,expected_literal):
     input_text = "=+(){},;"
-    lexer = lexer.Lexer(input_test)
+    lexer = Lexer(input_text)
 
     # cache tokens for all tests
     if not hasattr(test_next_token, "tokens"):
