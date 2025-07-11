@@ -1,4 +1,4 @@
-from vanara import token
+from ../vanara/ import token
 from vanara import lexer  
 import pytest
 
@@ -32,3 +32,5 @@ def test_next_token(expected_type,expected_literal):
     assert token.literal == expected_literal, f"token[{index}] literal wrong: expected {expected_literal}, got {token.literal}"
 
         
+#init call count
+test_next_token.call_count = 0 

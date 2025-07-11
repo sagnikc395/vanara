@@ -30,5 +30,6 @@ class TokenType(enum.Enum):
     LET = "LET"
 
 class Token:
-    type : TokenType
-    literal : str    
+    def __init__(self,type_: str, literal: str):
+        self.type = type_
+        self.literal = literal 
